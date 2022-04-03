@@ -36,7 +36,7 @@ def getSet(sentence):
         set.append(getVecByWord(word))
     return set
 
-def getDic(path):
+def getDic(path='./data/xiaoxueci.json'):
     """
     根据路径读取Json
     :param path: 字典路径
