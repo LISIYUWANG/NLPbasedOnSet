@@ -62,15 +62,33 @@ def saveDict(w2c):
     temp = {}
     with open('./data/w2c.json', 'w') as f:
         for _, v in enumerate(w2c):
-            print(v)
-            # v.strip('\n')
             temp[v[0]] = v[1]
         json_dict = json.dumps(temp, indent=4, ensure_ascii=False)
         f.write(json_dict)
 
 
+def saveCore(dic, topN):
+    """
+    保存核心词，保存为与词典相同形式
+    :param dic:
+    :param topN:
+    :return:
+    """
+    coreJson = []
+    with open('./data/coredict.json', 'w') as f:
+        for word in topN:
+            for dicWord in dic:
+                if word[0] == dicWord['ci']:
+                    coreJson.append(dicWord)
+        json.dump(coreJson, f, ensure_ascii=False)
+    return coreJson
+
+
 if __name__ == '__main__':
-    dic = tools.getDic(path='./data/ci.json')
+    dic = tools.getDic(path='./data/xiaoxueci.json')
+    # print(len(dic))
+    # print(dic[1])
     w2c = getW2CDict(dic)
-    saveDict(w2c)
-    print(getTopN(30, w2c))
+    # saveDict(w2c)
+    topN = getTopN(30, w2c)
+    print(saveCore(dic, topN))

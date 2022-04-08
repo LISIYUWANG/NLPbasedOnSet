@@ -20,6 +20,7 @@ def getVecByWord(word):
     # 加载
     weight_numpy = np.load(file="vector/emebed.ckpt.npy")
     embedding = torch.nn.Embedding.from_pretrained(torch.FloatTensor(weight_numpy))
+    # word2idx 词与索引的对照
     word2idx = pd.read_pickle("vector/word2idx.ckpt")
     # 得到个词的ID
     ids = torch.LongTensor([word2idx[word]])
@@ -92,15 +93,16 @@ def nextStep(vec, lr):
     vec += lr
     return vec
 if __name__ == '__main__':
+    getVecByWord('我')
     # print(getVecByWord('太阳'))
     # print(getSet(['苹果', '是', '红色', '水果']))
     # print(getEuclidean(getVecByWord('苹果'),getVecByWord('是')))
-    print(getEuclidean(torch.tensor([1,1]),torch.tensor([0,1])))
-    x = torch.tensor([3,3]).float()
-    y = torch.tensor([0,5]).float()
-    n = 10
-    lr = getLr(x,y,n)
-    print(lr)
-    for i in range(n+1):
-        print(i+1,'轮,距离为',getEuclidean(x,y))
-        x = nextStep(x, lr)
+    # print(getEuclidean(torch.tensor([1,1]),torch.tensor([0,1])))
+    # x = torch.tensor([3,3]).float()
+    # y = torch.tensor([0,5]).float()
+    # n = 10
+    # lr = getLr(x,y,n)
+    # print(lr)
+    # for i in range(n+1):
+    #     print(i+1,'轮,距离为',getEuclidean(x,y))
+    #     x = nextStep(x, lr)
