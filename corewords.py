@@ -70,7 +70,7 @@ def saveDict(w2c):
 
 
 if __name__ == '__main__':
-    dic = tools.getDic()
+    dic = tools.getDic(path='./data/ci.json')
     w2c = getW2CDict(dic)
     saveDict(w2c)
     print(getTopN(30, w2c))

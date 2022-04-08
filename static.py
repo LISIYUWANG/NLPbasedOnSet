@@ -47,6 +47,7 @@ def filter(exp):
     return exp
 if __name__ == '__main__':
     path = './data/xiaoxueci.json'
+    path = './data/ci.json'
     dic = getDic(path)
     print('字典条目为：',len(dic))
 
