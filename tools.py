@@ -17,6 +17,7 @@ def getVecByWord(word):
     :param word: 需要的词
     :return:词向量
     """
+    print(2)
     # 加载
     weight_numpy = np.load(file="vector/emebed.ckpt.npy")
     embedding = torch.nn.Embedding.from_pretrained(torch.FloatTensor(weight_numpy))
@@ -26,6 +27,8 @@ def getVecByWord(word):
     ids = torch.LongTensor([word2idx[word]])
     wordvector = embedding(ids).squeeze()
     # 通过ID结合ix2word得到向量
+    if torch.cuda.is_available():
+        wordvector = wordvector.cuda()
     return wordvector
 
 
