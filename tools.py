@@ -86,13 +86,32 @@ def filter(exp):
 
 
 def getEuclidean(x, y):
+    """
+    计算两个向量间的欧氏距离
+    :param x: 向量x
+    :param y: 向量y
+    :return: 欧氏距离
+    """
     return F.pairwise_distance(x, y, p=2)
 
 def getLr(x,y,n):
+    """
+    得到两个向量间的距离÷n后 即每次移动步长
+    :param x:
+    :param y:
+    :param n:
+    :return:
+    """
     # x向y移动
     return (y-x)/n
 
 def nextStep(vec, lr):
+    """
+    将vec移动lr步
+    :param vec:
+    :param lr:
+    :return:
+    """
     vec += lr
     return vec
 if __name__ == '__main__':

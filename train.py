@@ -11,7 +11,7 @@ import pandas as pd
 
 def getVecByWord(word):
     """
-    传入一个词 返回词向量  这里将读入的npy文件常驻了
+    传入一个词 返回词向量  这里将读入的npy文件常驻内存了 增加训练速度
     :param word: 需要的词
     :return:词向量
     """
@@ -27,8 +27,14 @@ def getVecByWord(word):
 
 
 def nearest(core, word):
+    """
+    得到与一个非核心词最近的核心词
+    :param core: 核心词词典
+    :param word: 非核心词
+    :return:最近的核心词
+    """
     # 计算离一个词最近的核心词
-    max = 99999
+    max = 99999 # 没查到怎么设置最大值 这里有点问题
     nrCore = None
     for cWord in core:
         dis = tools.getEuclidean(getVecByWord(cWord['ci']),getVecByWord(word['ci']))
@@ -39,9 +45,20 @@ def nearest(core, word):
 
 
 def saveWeight(weight_numpy, savePath):
+    """
+    保存一个权重文件
+    :param weight_numpy:权重文件
+    :param savePath: 保存路径
+    """
     np.save(savePath, weight_numpy)
 
 def judgeCore(core, word):
+    """
+    判断一个词是否是核心词
+    :param core: 核心词词典
+    :param word: 词
+    :return: True->核心词  False->非核心词
+    """
     # 判断一个word是不是核心词
     for c in core:
         if word == c['ci']:
@@ -49,6 +66,12 @@ def judgeCore(core, word):
     return False
 
 def train(core, dict):
+    """
+    训练函数
+    :param core:核心词词典
+    :param dict:待训练词典
+    :return:
+    """
     for word in tqdm.tqdm(dict):
         # 如果是核心词 则跳过 不调整
         if judgeCore(core, word['ci']):
